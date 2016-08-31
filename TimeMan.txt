@@ -1,3 +1,5 @@
+Desafio Recebido 30/8 e desenvolvimento iniciado na manhã seguinte
+
 Instalações:
 Inicio 10:03
 -Anaconda Python
@@ -12,3 +14,8 @@ Fim 11:46
 Inicio 13:16
 -Tela de configurações e funcionalidades básicas
 Fim 13:47
+
+Inicio 15:16
+-Dropdown baseado nas imagens dentro do diretorio Images
+-Banco de dados para salvar preferencia do usuário entre sessões implementado
+Fim 16:08
