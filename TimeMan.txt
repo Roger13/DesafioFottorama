@@ -1,0 +1,14 @@
+Instalações:
+Inicio 10:03
+-Anaconda Python
+-Pyside
+Fim 11:05
+
+Programando:
+Inicio 11:05
+-Tela Inicial
+Fim 11:46
+
+Inicio 13:16
+-Tela de configurações e funcionalidades básicas
+Fim 13:47
