@@ -19,3 +19,7 @@ Inicio 15:16
 -Dropdown baseado nas imagens dentro do diretorio Images
 -Banco de dados para salvar preferencia do usuário entre sessões implementado
 Fim 16:08
+
+Inicio 16:48
+-arquivo JSON para salvar preferencia do usuário entre sessões implementado 
+Fim 17:41

@@ -1,4 +1,5 @@
 import sys
+import json
 
 import sqlite3
 # Set the DB interface 
@@ -52,7 +53,15 @@ class LayoutExample(QWidget):
         # Create the Image Mapper with the image from users database  
         imgPref = "cat.png" # Default image
         for name in (c.execute("SELECT image FROM users WHERE id = 1")):
-            imgPref = name[0]            
+            imgPref = name[0]
+        # Fetch json and compare image attribute with the database one            
+        f = open("users.json","r")
+        jsonLine = f.read()
+        # If different, stick with json one
+        self.jsObject = json.loads(jsonLine) 
+        if self.jsObject["image"] != imgPref:
+            imgPref = self.jsObject["image"]  
+        
         self.imageMap = QPixmap("Images/" + imgPref)             
         # Create label to hold the image
         self.image = QLabel(self.mainPage)
@@ -111,7 +120,14 @@ class LayoutExample(QWidget):
         # Save preference on the database
         c.execute("UPDATE users SET image = '"+ imgPref +"' WHERE id = 1")
         conn.commit()
-                
+        
+        # Save preferences on json file
+        f = open("users.json","w")
+        # Update "JavaScript" Object
+        self.jsObject["image"] = imgPref
+        # Write to json file        
+        f.write(json.dumps(self.jsObject))                 
+        
         # Change visible page            
         self.mainPage.setVisible(1)
         self.configPage.setVisible(0)
