@@ -21,26 +21,74 @@ class LayoutExample(QWidget):
         
         # Create the QVBoxLayout that lays out the whole form
         self.layout = QVBoxLayout()
-        
-        # Create the Image Mapper        
-        self.imageMap = QPixmap("Images/cat.png")
-        
-        # Create label to hold the image
-        self.image = QLabel(self)
-        self.image.setPixmap(self.imageMap)
-        
-        # Add image to the page layout
-        self.layout.addWidget(self.image)
-        
-        #Create button to switch view
-        self.switchButton =  QPushButton('Configurations', self)
-        
-        #Add button to the page layout
-        self.layout.addWidget(self.switchButton)
-        
         #Apply the layout to the page
         self.setLayout(self.layout)
         
+        #Create main and configurations page        
+        self.mainPage = QWidget(self)
+        self.configPage = QWidget(self)
+        self.layout.addWidget(self.mainPage)
+        self.layout.addWidget(self.configPage)    
+        
+        
+        #Main page definitions begin here        
+        
+        #Apply the layout to the main page
+        self.mainPageLayout = QVBoxLayout()         
+        self.mainPage.setLayout(self.mainPageLayout)
+        
+        # Create the Image Mapper        
+        self.imageMap = QPixmap("Images/planet.jpg")             
+        # Create label to hold the image
+        self.image = QLabel(self.mainPage)
+        self.image.setPixmap(self.imageMap)        
+        # Add image to the page layout
+        self.mainPageLayout.addWidget(self.image)
+        
+        #Create button to switch view
+        self.configButton = QPushButton('&Configurations', self.mainPage)        
+        #Add functionality to the button
+        self.configButton.clicked.connect(self.configButtonClick)
+        #Add button to the page layout
+        self.mainPageLayout.addWidget(self.configButton)
+        
+        
+        #Configurations page definition begin here        
+
+        #Apply the layout to the configuration page        
+        self.configPageLayout = QFormLayout()
+        self.configPage.setLayout(self.configPageLayout)
+
+        #Create dropdown options
+        self.imagesNames = ['planet.jpg','cat.png','building.jpg']
+        # Create and fill the combo box to choose the salutation
+        self.imageName = QComboBox(self.configPage)
+        self.imageName.addItems(self.imagesNames)
+        # Add it to the form layout with a label
+        self.configPageLayout.addRow('Select Image:', self.imageName)             
+        
+        #Create button to save image chosen
+        self.saveButton = QPushButton('&Save', self.configPage)        
+        #Add functionality to the button
+        self.saveButton.clicked.connect(self.saveButtonClick)
+        #Add button to the page layout
+        self.configPageLayout.addWidget(self.saveButton)
+        
+        #Set initial view
+        self.mainPage.setVisible(1)
+        self.configPage.setVisible(0)
+
+        
+    @Slot()
+    def configButtonClick(self):
+        self.mainPage.setVisible(0)
+        self.configPage.setVisible(1)
+    @Slot()
+    def saveButtonClick(self):
+        self.imageMap.load("Images/" + self.imagesNames[self.imageName.currentIndex()])
+        self.image.setPixmap(self.imageMap)
+        self.mainPage.setVisible(1)
+        self.configPage.setVisible(0)
        
     def run(self):
         # Show the form
